@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment, Float, useTexture } from "@react-three/drei";
+import { Float, useTexture } from "@react-three/drei";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
@@ -134,7 +134,6 @@ function ShelfScene({ active, onSelect }: { active: number; onSelect: (index: nu
           <Float speed={0.7} rotationIntensity={0.03} floatIntensity={0.08}>
             <WorkshopShelf pointer={pointer} active={active} onSelect={onSelect} />
           </Float>
-          <Environment preset="warehouse" />
         </Suspense>
         <CameraRig pointer={pointer} />
       </Canvas>
