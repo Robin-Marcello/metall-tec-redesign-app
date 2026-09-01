@@ -19,7 +19,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-nunito)", "system-ui", "sans-serif"],
+        display: ["var(--font-montserrat)", "system-ui", "sans-serif"],
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
       },

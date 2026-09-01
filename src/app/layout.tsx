@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito, Inter, JetBrains_Mono } from "next/font/google";
+import { Nunito, Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -26,6 +26,13 @@ const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
   weight: ["400", "500"],
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["700", "800", "900"],
   display: "swap",
 });
 
@@ -73,7 +80,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de-AT" className={`${nunito.variable} ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="de-AT" className={`${nunito.variable} ${inter.variable} ${jetbrains.variable} ${montserrat.variable}`}>
       <head>
         {/* Prevent flash: apply stored theme before first paint */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme');if(t==='light'||(t==='system'&&!window.matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('light');})();` }} />
