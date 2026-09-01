@@ -1,6 +1,15 @@
+import path from "node:path";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  webpack(config) {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      "@designcodeio/threeui$": path.resolve(process.cwd(), "src/vendor/threeui.ts"),
+    };
+    return config;
+  },
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],

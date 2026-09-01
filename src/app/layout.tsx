@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito, Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
+import "@designcodeio/threeui/style.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WeldThread from "@/components/thread/WeldThread";
