@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Dark theme (default) ─────────────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+  --thread-glow: rgba(184, 199, 44, 0.55);
+
+  --carbon:   10  11  14;   /* #0A0B0E */
+  --graphite: 19  21  25;   /* #131519 */
+  --steel:    28  31  38;   /* #1C1F26 */
+  --seam:     42  46  55;   /* #2A2E37 */
+  --chrome:  201 207 216;   /* #C9CFD8 */
+  --mist:    138 147 161;   /* #8A93A1 */
+}
+
+/* ── Light theme ──────────────────────────────────────────────────────────── */
+:root.light {
+  color-scheme: light;
+  --thread-glow: rgba(184, 199, 44, 0.7);
+
+  --carbon:  247 248 250;   /* #F7F8FA */
+  --graphite:255 255 255;   /* #FFFFFF */
+  --steel:   241 243 246;   /* #F1F3F6 */
+  --seam:    218 222 228;   /* #DADEE4 */
+  --chrome:   26  30  40;   /* #1A1E28 */
+  --mist:    100 110 125;   /* #646E7D */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-carbon text-chrome antialiased;
+  background-image: radial-gradient(
+      1200px 600px at 80% -10%,
+      rgba(201, 207, 216, 0.05),
+      transparent 60%
+    ),
+    radial-gradient(900px 500px at -10% 30%, rgba(184, 199, 44, 0.04), transparent 60%);
+}
+
+.light body {
+  background-image: radial-gradient(
+      1200px 600px at 80% -10%,
+      rgba(26, 30, 40, 0.04),
+      transparent 60%
+    ),
+    radial-gradient(900px 500px at -10% 30%, rgba(184, 199, 44, 0.07), transparent 60%);
+}
+
+::selection {
+  background: rgba(184, 199, 44, 0.35);
+  color: #e5eda8;
+}
+
+.light ::selection {
+  background: rgba(184, 199, 44, 0.45);
+  color: #1a1e28;
+}
+
+/* Brushed-metal text */
+.text-metal {
+  background: linear-gradient(
+    100deg,
+    #9aa3af 0%,
+    #e8ecf2 28%,
+    #aeb6c2 50%,
+    #f4f7fb 72%,
+    #8a93a1 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.light .text-metal {
+  background: linear-gradient(
+    100deg,
+    #2a3040 0%,
+    #4a5268 28%,
+    #1a1e28 50%,
+    #3a4258 72%,
+    #2a3040 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glassmorphism panels.
+   .glass        = translucent panel WITHOUT backdrop-filter (cheap, for cards/lists)
+   .glass-strong = real backdrop blur, reserved for nav + CTA where content
+                   actually scrolls behind it. Blanket backdrop-filter was a
+                   major scroll-jank source on mobile. */
+.glass {
+  @apply border border-white/[0.08] bg-white/[0.045] shadow-glass;
+}
+
+.glass-strong {
+  @apply border border-white/[0.10] bg-graphite/80 shadow-glass backdrop-blur-xl;
+}
+
+.light .glass {
+  border-color: rgba(0, 0, 0, 0.09);
+  background-color: rgba(0, 0, 0, 0.025);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.80), 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.light .glass-strong {
+  border-color: rgba(0, 0, 0, 0.09);
+  background-color: rgba(255, 255, 255, 0.88);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 8px 32px rgba(0, 0, 0, 0.10);
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(201, 207, 216, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 207, 216, 0.12) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at 68% 42%, black 0%, transparent 68%);
+}
+
+/* Section activation by the weld thread */
+[data-thread-section] {
+  --activation: 0;
+}
+[data-thread-section] .thread-reactive {
+  opacity: calc(0.35 + 0.65 * var(--activation));
+  transform: translateY(calc((1 - var(--activation)) * 24px));
+  transition: opacity 0.28s ease-out,
+    transform 0.28s ease-out;
+}
+[data-thread-section].is-lit .thread-reactive {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-thread-section].is-lit .thread-marker {
+  box-shadow: 0 0 0 4px rgba(184, 199, 44, 0.15), 0 0 18px rgba(184, 199, 44, 0.55);
+  background: #b8c72c;
+}
+
+.thread-marker {
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Focus visibility */
+:focus-visible {
+  outline: 2px solid #b8c72c;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--carbon));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--seam));
+  border-radius: 8px;
+  border: 2px solid rgb(var(--carbon));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--mist));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Composited light sweep (transform-only, no repaint) */
+.sheen-sweep {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sheen-sweep::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(201, 207, 216, 0.07) 40%,
+    rgba(201, 207, 216, 0.13) 50%,
+    rgba(201, 207, 216, 0.07) 60%,
+    transparent
+  );
+  transform: translateX(-120%) skewX(-12deg);
+  animation: sweep 7s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes sweep {
+  0% { transform: translateX(-120%) skewX(-12deg); }
+  55%, 100% { transform: translateX(420%) skewX(-12deg); }
+}
